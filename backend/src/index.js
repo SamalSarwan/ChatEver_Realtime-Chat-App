@@ -14,7 +14,6 @@ app.use(bodyParser.urlencoded({ limit: '10mb', extended: true }));
 
 const PORT = process.env.PORT;
 const __dirname = path.resolve();
-console.log(path.join(__dirname,"../frontend","dist"))
 // Middleware
 app.use(cors({
     origin: "http://localhost:5173",
@@ -29,7 +28,7 @@ app.use("/api/messages", messageRoutes);
 
 if(process.env.NODE_ENV==="production"){
     app.use(express.static(path.join(__dirname, "../frontend","dist")));
-    app.get("/*",(req,res)=>{
+    app.get("/:path(*)",(req,res)=>{
         res.sendFile(path.join(__dirname, "../frontend","dist","index.html"));
     });
 }
